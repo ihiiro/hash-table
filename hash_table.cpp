@@ -104,23 +104,27 @@ void insert ( ht *HT , const u_char *key , const u_char *value )
 
 }
 
-bucket get ( ht *HT , const u_char *key )
+bucket *get ( ht *HT , const u_char *key )
 {
 
     uint64_t index = hash ( key );
+    bool stop = 0;
 
     while ( 1 )
     {
-
         if ( index == M )
         {
 
+            if ( stop )
+                return NULL;
+            stop = 1;
             index = 0;
             continue;
 
         }
-        if ( std::strcmp ( (char *)key , (char *)HT->buckets [ index ].key  ) == 0 )
-            return HT->buckets [ index ];
+        if ( key and HT->buckets [ index ].key and 
+            std::strcmp ( (char *)key , (char *)HT->buckets [ index ].key  ) == 0 )
+            return &HT->buckets [ index ];
 
         index += PROBE_LENGTH;
 
@@ -142,8 +146,8 @@ int main ( int argc, char **argv )
     u_char *value = (u_char *)"stuff stuff";
     insert ( hash_table , key , value);
 
-    std::cout << get ( hash_table , key ).key << "\n";
-    std::cout << get ( hash_table , key ).value << "\n";
+    std::cout << get ( hash_table , key )->key << "\n";
+    std::cout << get ( hash_table , key )->value << "\n";
 
 
 
