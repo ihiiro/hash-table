@@ -146,8 +146,8 @@ int main ( int argc, char **argv )
     // hash_table->n = 0;
     std::memset ( hash_table->buckets , 0 , M );
 
-    u_char *key = (u_char *)"Content-nigga";
-    u_char *value = (u_char *)"nigga stuff";
+    u_char *key = (u_char *)"Content-stuff";
+    u_char *value = (u_char *)"stuff stuff";
     insert ( hash_table , key , value);
 
     std::cout << get ( hash_table , key ).key << "\n";
