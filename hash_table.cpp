@@ -76,16 +76,8 @@ uint64_t hash ( const u_char *k )
 void insert ( ht *HT , const u_char *key , const u_char *value )
 {
 
-    uint64_t lvalue = 0;
-    uint64_t i = 0;
-    u_char *value_copy;
     uint64_t index = hash ( key );
 
-    for (; value [ lvalue ] ; lvalue++ );
-    value_copy = new u_char [ lvalue + 1 ];
-    for (; i < lvalue ; i++ )
-        value_copy [ i ] = value [ i ];
-    value_copy [ i ] = '\0';
     /* linear probing with a fixed length */
     while ( 1 )
     {
@@ -101,7 +93,7 @@ void insert ( ht *HT , const u_char *key , const u_char *value )
         {
 
             HT->buckets [ index ].key = key;
-            HT->buckets [ index ].value = value_copy;
+            HT->buckets [ index ].value = value;
             return;
 
         }
